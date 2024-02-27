@@ -25,10 +25,10 @@ public class AuthController {
     }
 
     @PostMapping(path = "/user/auth")
-    public ResponseEntity<Void> auth(@RequestBody User user) {
-        userService.auth(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    public ResponseEntity<String> auth(@RequestBody User user) {
+        String otpCode = userService.auth(user);
+        return new ResponseEntity<>(otpCode, HttpStatus.OK);
+    }   //  ToDO otp code 를 response 한다.
 
     @PostMapping(path = "/otp/check")
     public ResponseEntity<Void> check(@RequestBody Otp otp) {

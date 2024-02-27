@@ -6,7 +6,7 @@ import com.example.otp.entity.User;
 public interface UserService {
     void addUser(User user);
 
-    void auth(User user);
+    String auth(User user);
 
     boolean check(Otp otpToValidate);
 }

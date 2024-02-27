@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void auth(User user) {
+    public String auth(User user) {
         User findUser = userRepository.findUserByUsername(user.getUsername()).orElseThrow(() -> badCredentials().get());
         log.info("findUser = {}", findUser.getUsername());
         log.info("findUser = {}", findUser.getPassword());
         if (passwordEncoder.matches(user.getPassword(), findUser.getPassword())) {
-            renewOtp(findUser);
+            return renewOtp(findUser);
         } else {
             throw badCredentials().get();
         }
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         return passwordEncoder.encode(user.getPassword());
     }
 
-    private void renewOtp(User findUser) {
+    private String renewOtp(User findUser) {
         String code = GenerateCodeUtil.generateCode();
         Optional<Otp> findOtp = otpRepository.findOtpByUsername(findUser.getUsername());
 
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
                     .build();
             otpRepository.save(otp);
         }
-
+        return code;
     }
 
     private static final class GenerateCodeUtil {
