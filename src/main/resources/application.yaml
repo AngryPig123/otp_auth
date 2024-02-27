@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/otp_auth
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+server:
+  port: 8522
